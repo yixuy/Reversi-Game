@@ -1,0 +1,7 @@
+{
+    "python.formatting.provider": "black",
+    "java.project.sourcePaths": [
+        "hello-world",
+        "server"
+    ]
+}

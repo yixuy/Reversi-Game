@@ -1,0 +1,31 @@
+version: "3"
+services:
+  rabbitmq:
+    image: rabbitmq:3.8
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      - "5672:5672"
+
+  ts:
+    build:
+        context: ./client
+        dockerfile: ts.Dockerfile
+    ports:
+      - "3000:3000"
+
+  python:
+    build:
+      context: ./server
+      dockerfile: python.Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - rabbitmq
+  go:
+    build:
+      context: ./server
+      dockerfile: go.Dockerfile
+    depends_on:
+      - rabbitmq
